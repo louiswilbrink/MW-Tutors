@@ -1,0 +1,41 @@
+* { margin: 0; padding: 0; }
+
+body {
+  background-color: #eee;
+}
+
+.container {
+  background-color: white;
+  margin-right: auto;
+  margin-left: auto;
+  border-left-color: rgb(238, 238, 238);
+  border-left-style: solid;
+  border-left-width: 2px;
+  border-right-color: rgb(238, 238, 238);
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-top-color: rgb(238, 238, 238);
+  border-top-left-radius: 4.796875px;
+  border-top-right-radius: 4.796875px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  box-shadow: rgb(204, 204, 204) 1px 2px 4px 0px;
+}
+
+.header {
+  height: 130px;
+}
+
+.company {
+  height: 50px;
+}
+
+.company
+#logo {
+  float: left;
+}
+
+.company
+.info {
+  float: right;
+}
