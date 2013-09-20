@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('micaApp')
+angular.module('MWTutorsApp')
   .directive('jumbotron', function () {
     return {
       template: '<div></div>',

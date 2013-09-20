@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('micaApp')
+angular.module('MWTutorsApp')
   .directive('header', function () {
     return {
       templateUrl: 'views/header.html',

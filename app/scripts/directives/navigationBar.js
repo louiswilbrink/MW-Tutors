@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('micaApp')
+angular.module('MWTutorsApp')
   .directive('navigationBar', function () {
     return {
       templateUrl: 'views/navigationBar.html',

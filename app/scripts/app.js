@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('micaApp', [])
+angular.module('MWTutorsApp', [])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

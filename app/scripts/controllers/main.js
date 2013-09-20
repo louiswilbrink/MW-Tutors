@@ -1,10 +1,5 @@
 'use strict';
 
-angular.module('micaApp')
+angular.module('MWTutorsApp')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
   });

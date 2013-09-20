@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('MWTutorsApp')
-  .directive('footer', function () {
+  .directive('homePage', function () {
     return {
-      templateUrl: 'views/footer.html',
+      templateUrl: 'views/homePage.html',
       restrict: 'E',
       controller: function ($scope) {
 
