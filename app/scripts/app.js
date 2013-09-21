@@ -6,6 +6,13 @@ angular.module('MWTutorsApp', [])
       .when('/', {
         templateUrl: 'views/main.html',
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+      })
+      .when('/newsfeed', {
+        templateUrl: 'views/newsfeed.html',
+        controller: 'NewsfeedCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
