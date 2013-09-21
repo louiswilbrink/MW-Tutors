@@ -128,3 +128,14 @@ img {
 .newsfeed {
 
 }
+
+.add-news-form {
+  width: 300px;
+  border: 1px dashed black;
+  padding: 15px;
+}
+
+.add-news-form
+.title {
+  margin-top: 5px;
+}

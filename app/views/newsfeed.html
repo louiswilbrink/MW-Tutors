@@ -1,14 +1,4 @@
 <div class="newsfeed">
   <h1>Newsfeed</h1>
-  <form role="form">
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input ng-model="newsfeed.m.title" type="text" class="form-control" id="title">
-      <label for="video-embed-code">Video Embed Code</label>
-      <textarea ng-model="newsfeed.m.videoEmbedCode" class="form-control" rows="3"></textarea>
-      <label for="transcript">Transcript</label>
-      <textarea ng-model="newsfeed.m.transcript" class="form-control" rows="3"></textarea>
-    </div>
-  </form>
-  <a ng-click="addNews()" class="btn btn-primary btn-lg">Add News</a>
+  <add-news-form></add-news-form>
 </div>
