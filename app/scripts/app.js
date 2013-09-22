@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MWTutorsApp', [])
+angular.module('MWTutorsApp', ['ngRoute', 'ngSanitize'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

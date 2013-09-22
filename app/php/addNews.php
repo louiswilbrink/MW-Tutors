@@ -4,10 +4,16 @@
 
   $params = json_decode(file_get_contents('php://input'));
   $title = $params->title;
+  $imageUrl = $params->imageUrl;
   $videoEmbedCode = $params->videoEmbedCode;
   $transcript = $params->transcript;
 
-  addNews($title, $videoEmbedCode, $transcript);
+  if ($videoEmbedCode == "")
+  {
+    $videoEmbedCode = "<p>no video</p>";
+  }
+
+  addNews($title, $imageUrl, $videoEmbedCode, $transcript);
 
   $response['log'] = "Amazon SimpleDB: added the news.";
   

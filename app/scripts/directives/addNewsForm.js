@@ -5,7 +5,7 @@ angular.module('MWTutorsApp')
     return {
       templateUrl: 'views/addNewsForm.html',
       restrict: 'E',
-      controller: function ($scope) {
+      controller: function ($scope, $http) {
 
         $scope.addNewsForm = {
           m: {
@@ -17,14 +17,16 @@ angular.module('MWTutorsApp')
 
         $scope.addNews = function () {
 
-          console.log($scope.addNewsForm);
-
           $http.post("php/addNews.php", {
             "title": $scope.addNewsForm.m.title,
+            "imageUrl": $scope.addNewsForm.m.imageUrl,
             "videoEmbedCode": $scope.addNewsForm.m.videoEmbedCode,
             "transcript": $scope.addNewsForm.m.transcript
             })
             .success(function (data, status) {
+              $scope.$broadcast("NewsAdded", $scope.addNewsForm.m);
+            })
+            .error(function (data, status) {
               console.log(data);
             });
         }
