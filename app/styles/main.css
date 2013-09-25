@@ -147,3 +147,16 @@ img {
 .title {
   margin-top: 5px;
 }
+
+.about-us
+.row {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.about-us
+.row
+.story {
+  padding-right: 100px;
+  padding-left: 100px;
+}

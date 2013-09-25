@@ -5,8 +5,13 @@ angular.module('MWTutorsApp')
     return {
       templateUrl: 'views/navigationBar.html',
       restrict: 'E',
-      controller: function ($scope) {
+      controller: function ($scope, $location) {
 
+        /*
+        $scope.aboutUs = function () {
+          $location = 
+        };
+        */
       }
     };
   });

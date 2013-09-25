@@ -13,6 +13,9 @@ angular.module('MWTutorsApp', ['ngRoute', 'ngSanitize'])
         templateUrl: 'views/newsfeed.html',
         controller: 'NewsfeedCtrl'
       })
+      .when('/about-us', {
+        templateUrl: 'views/aboutUs.html',
+      })
       .otherwise({
         redirectTo: '/'
       });

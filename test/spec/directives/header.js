@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Directive: header', function () {
-  beforeEach(module('micaApp'));
+  beforeEach(module('MWTutorsApp'));
 
   var element;
 
