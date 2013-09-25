@@ -1,9 +1,17 @@
 <?php
 
 require_once 'aws-sdk/vendor/autoload.php';
+require_once 'tpyo-amazon-s3-php-class-2061fa8/S3.php';
 require_once 'chromephp/ChromePhp.php';
 
 use Aws\SimpleDb\SimpleDbClient;
+
+function getS3 () {
+
+  $credentials = file('nothing-to-see-here-folks.secretSauce');
+
+  return new S3($credentials[0], $credentials[1]);
+}
 
 function getClient () {
 
@@ -18,12 +26,10 @@ function getClient () {
 
 function addNews($title, $imageUrl, $videoEmbedCode, $transcript) {
 
-  ChromePhp::log($videoEmbedCode);
-
   $client = getClient();
+  $s3 = getS3();
 
   $id = uniqid();
-
   $now = time();
 
   $client->putAttributes(array(

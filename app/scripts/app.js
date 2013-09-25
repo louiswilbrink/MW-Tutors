@@ -9,6 +9,9 @@ angular.module('MWTutorsApp', ['ngRoute', 'ngSanitize'])
       .when('/login', {
         templateUrl: 'views/login.html',
       })
+      .when('/contact-us', {
+        templateUrl: 'views/contactUs.html',
+      })
       .when('/newsfeed', {
         templateUrl: 'views/newsfeed.html',
         controller: 'NewsfeedCtrl'
