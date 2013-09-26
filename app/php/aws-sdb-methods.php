@@ -10,7 +10,11 @@ function getS3 () {
 
   $credentials = file('nothing-to-see-here-folks.secretSauce');
 
-  return new S3($credentials[0], $credentials[1]);
+  // Remove \n character.
+  $access = preg_replace("/[\n\r]/","",$credentials[0]);  
+  $secret = preg_replace("/[\n\r]/","",$credentials[1]);  
+
+  return new S3($access, $secret);
 }
 
 function getClient () {
@@ -26,11 +30,32 @@ function getClient () {
 
 function addNews($title, $imageUrl, $videoEmbedCode, $transcript) {
 
-  $client = getClient();
-  $s3 = getS3();
-
   $id = uniqid();
   $now = time();
+
+  // Write the transcript file into a tmp folder.
+  $transcriptFile = "../tmp/transcript-$id.txt";
+
+  file_put_contents($transcriptFile, $transcript);
+
+  // Instantiate s3, setup mw_tutors bucket.
+  $s3 = getS3();
+  $s3->putBucket("mw_tutors", S3::ACL_PUBLIC_READ);
+
+  $s3transcriptFile = "transcript-$id.txt";
+    
+  if ($s3->putObjectFile($transcriptFile, "mw_tutors", $s3transcriptFile, S3::ACL_PUBLIC_READ)) 
+  {  
+     ChromePhp::log("upload successful"); 
+  }
+  else
+  {  
+     ChromePhp::log("upload failed!");
+  } 
+
+  unlink($transcriptFile);
+
+  $client = getClient();
 
   $client->putAttributes(array(
     'DomainName' => 'mw_newsfeed',
@@ -39,11 +64,13 @@ function addNews($title, $imageUrl, $videoEmbedCode, $transcript) {
       array('Name' => 'title', 'Value' => $title),
       array('Name' => 'imageUrl', 'Value' => $imageUrl),
       array('Name' => 'videoEmbedCode', 'Value' => $videoEmbedCode),
-      array('Name' => 'transcript', 'Value' => $transcript),
+      array('Name' => 's3transcriptFile', 'Value' => $s3transcriptFile),
       array('Name' => 'status', 'Value' => '1'),
       array('Name' => 'timestamp', 'Value' => $now),
     )
   ));
+
+  return;
 }
 
 function deleteNews($id) {
@@ -95,8 +122,15 @@ function getNewsfeed ()
 
       foreach ($item['Attributes'] as $attr) {
 
+        // Retrieve full transcript from s3.
+        if($attr['Name'] == 's3transcriptFile')
+        {
+          $s3transcriptFile = (string) $attr['Value'];
+          $response = S3::getObject('mw_tutors', $s3transcriptFile);
+          $news['transcript'] = $response->body;
+        }
         // send timestamp as an integer.
-        if ($attr['Name'] == 'timestamp')
+        else if ($attr['Name'] == 'timestamp')
         {
           $news[$attr['Name']] = (int) $attr['Value'];
         }

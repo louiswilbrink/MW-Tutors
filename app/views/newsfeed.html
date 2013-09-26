@@ -15,7 +15,7 @@
             <img ng-src="{{news.imageUrl}}" class="img-rounded mw-news-image">
           </div>
           <!--<div ng-bind-html="news.videoEmbedCode"></div>-->
-          <p class="transcript">{{ news.transcript }}</p>
+          <p class="transcript" ng-repeat="paragraph in news.transcript track by $index">{{ paragraph }}</p>
         </div>
       </div>
     </div>
