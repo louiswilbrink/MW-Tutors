@@ -17,7 +17,17 @@ angular.module('MWTutorsApp', ['ngRoute', 'ngSanitize'])
         controller: 'NewsfeedCtrl'
       })
       .when('/about-us', {
-        templateUrl: 'views/aboutUs.html',
+        templateUrl: 'views/aboutUsPage.html',
+      })
+      .when('/contact-us', {
+        templateUrl: 'views/contactUsPage.html',
+      })
+      .when('/calendar', {
+        templateUrl: 'views/calendarPage.html',
+      })
+      .when('/newsfeed-cms', {
+        templateUrl: 'views/newsfeedCms.html',
+        controller: 'NewsfeedCtrl'
       })
       .otherwise({
         redirectTo: '/'

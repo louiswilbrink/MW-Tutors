@@ -1,0 +1,35 @@
+<navigation-bar></navigation-bar>
+<div class="newsfeed">
+  <h1>Newsfeed</h1>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="panel panel-default" ng-repeat="news in newsfeed.m.news">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">{{news.title}}</h3>
+          <button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteNews(news, $index)">&times;</button>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <p class="pull-right">Date Added: {{ news.timestamp | secondsToDate }}</p>
+          <div class="clearfix"></div>
+          <div class="centered">
+            <img ng-src="{{news.imageUrl}}" class="img-rounded mw-news-image">
+          </div>
+          <!--<div ng-bind-html="news.videoEmbedCode"></div>-->
+          <p class="transcript" ng-repeat="paragraph in news.transcript track by $index">{{ paragraph }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Add News</h3>
+        </div>
+        <div class="panel-body">
+          <add-news-form></add-news-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer></footer>

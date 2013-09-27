@@ -64,6 +64,11 @@ h1, h2 {
   text-align: center;
 }
 
+.margin-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .black-text {
   color: black;
 }
@@ -124,6 +129,14 @@ img {
 .transcript {
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.newsfeed
+.panel
+{
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /*** addNewsForm.html ***/

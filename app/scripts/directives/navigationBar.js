@@ -7,11 +7,32 @@ angular.module('MWTutorsApp')
       restrict: 'E',
       controller: function ($scope, $location, $anchorScroll) {
 
-        $scope.gotoAboutUs = function () {
-          $location.hash('about-us');
-
-          $anchorScroll();
+        $scope.gotoNewsfeed = function () {
+          $location.path("/newsfeed");
         };
+
+        $scope.gotoAboutUs = function () {
+
+          if ($location.path() == '/')
+          {
+            $location.hash('about-us');
+            $anchorScroll();
+          }
+          else
+          {
+            $location.path('/about-us');
+          }
+        };
+
+        $scope.gotoContactUs = function () {
+
+          $location.path('/contact-us');
+        };
+
+        $scope.gotoCalendar = function () {
+
+          $location.path('/calendar');
+        }
       }
     };
   });
