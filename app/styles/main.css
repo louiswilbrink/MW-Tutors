@@ -139,6 +139,11 @@ img {
   margin-left: auto;
 }
 
+.newsfeed-img {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
 /*** addNewsForm.html ***/
 
 .add-news-form {
@@ -166,6 +171,21 @@ h1 {
 .story {
   padding-right: 100px;
   padding-left: 100px;
+}
+
+.about-us-short
+{
+  padding-top: 50px;
+}
+
+.about-us-img
+{
+  max-height: 153px;
+}
+
+.about-us-two-img
+{
+  max-height: 140px;
 }
 
 /*** footer.html ***/

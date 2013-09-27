@@ -3,13 +3,13 @@
   <h1 class="centered">Newsfeed</h1>
     <div class="panel panel-default" ng-repeat="news in newsfeed.m.news">
       <div class="panel-heading">
-        <h3 class="panel-title pull-left">{{news.title}}</h3>
+        <h3 class="panel-title pull-left"><strong>{{news.title}}</strong></h3>
         <div class="clearfix"></div>
       </div>
       <div class="panel-body">
         <p class="pull-right">Date Added: {{ news.timestamp | secondsToDate }}</p>
         <div class="clearfix"></div>
-        <div class="centered">
+        <div class="newsfeed-img centered">
           <img ng-src="{{news.imageUrl}}" class="img-rounded mw-news-image">
         </div>
         <!--<div ng-bind-html="news.videoEmbedCode"></div>-->

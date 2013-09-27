@@ -5,7 +5,16 @@ angular.module('MWTutorsApp')
     return {
       templateUrl: 'views/aboutUs.html',
       restrict: 'E',
-      controller: function ($scope) {
+      controller: function ($scope, $location) {
+
+        $scope.gotoNewsfeed = function () {
+          $location.path("/newsfeed");
+        };
+
+        $scope.gotoCalendar = function () {
+
+          $location.path('/calendar');
+        }
       }
     };
   });
