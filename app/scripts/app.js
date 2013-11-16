@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MWTutorsApp', ['ngRoute', 'ngSanitize'])
+angular.module('MWTutorsApp', ['ngRoute', 'ngAnimate'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -28,6 +28,10 @@ angular.module('MWTutorsApp', ['ngRoute', 'ngSanitize'])
       .when('/newsfeed-cms', {
         templateUrl: 'views/newsfeedCms.html',
         controller: 'NewsfeedCtrl'
+      })
+      .when('/test-page', {
+        templateUrl: 'views/testPage.html',
+        controller: 'testPageCtrl'
       })
       .otherwise({
         redirectTo: '/'

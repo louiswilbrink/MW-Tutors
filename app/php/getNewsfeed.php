@@ -6,8 +6,6 @@
 
   $response['newsfeed'] = getNewsfeed();
 
-  $response['log'] = "Amazon SimpleDB: retrieved the news.";
-  
   $jsonString = json_encode($response);
 
   echo $jsonString;

@@ -1,36 +1,17 @@
-@font-face {
-    font-family: 'colaborate-thinregular';
-    src: url('fonts/colaborate/colabthi-webfont.eot');
-    src: url('fonts/colaborate/colabthi-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/colaborate/colabthi-webfont.woff') format('woff'),
-         url('fonts/colaborate/colabthi-webfont.ttf') format('truetype'),
-         url('fonts/colaborate/colabthi-webfont.svg#colaborate-thinregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'aaarghnormal';
-    src: url('fonts/aaargh/aaargh-webfont.eot');
-    src: url('fonts/aaargh/aaargh-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/aaargh/aaargh-webfont.woff') format('woff'),
-         url('fonts/aaargh/aaargh-webfont.ttf') format('truetype'),
-         url('fonts/aaargh/aaargh-webfont.svg#aaarghnormal') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 .nav, .pagination, .carousel a { cursor: pointer; }
 
 * { margin: 0; padding: 0; }
 
-body {
-  background-color: #eee;
-font-family: 'colaborate-thinregular';
+p {
+  font-family: 'Sintony', sans-serif;
 }
 
-h1, h2 {
+h1 {
   font-family: 'aaarghnormal';
+}
+
+h2 {
+  font-family: 'colaborate-thinregular';
 }
 
 .container {
@@ -114,34 +95,6 @@ img {
 .mw-small-text {
   font-size: 10px;
   margin: 0px;
-}
-
-/*** newsfeed.html ***/
-
-.newsfeed {
-}
-
-.mw-news-image {
-  max-width: 500px;
-}
-
-.newsfeed
-.transcript {
-  padding-right: 10px;
-  padding-left: 10px;
-}
-
-.newsfeed
-.panel
-{
-  width: 60%;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.newsfeed-img {
-  margin-top: 15px;
-  margin-bottom: 25px;
 }
 
 /*** addNewsForm.html ***/

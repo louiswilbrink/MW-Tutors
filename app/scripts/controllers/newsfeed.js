@@ -6,9 +6,10 @@ angular.module('MWTutorsApp')
     // *** MODEL *** //
 
     $scope.newsfeed = {
-      m: {
-        news: []
-      }
+      news: []
+        // Title
+        // Date
+        // Description
     };
 
     // *** INITIALIZATION *** //
@@ -26,11 +27,15 @@ angular.module('MWTutorsApp')
 
     $http.post("php/getNewsfeed.php")
       .success(function (data, status) {
-        $scope.newsfeed.m.news = data['newsfeed'];
 
+        console.log(data);
+        $scope.newsfeed.news = data['newsfeed'];
+
+        /*
         angular.forEach($scope.newsfeed.m.news, function (value, key) {
           $scope.newsfeed.m.news[key].transcript = value.transcript.decodeHTML().split("\n");
         });
+        */
       });
 
     // *** USER-ACTIONS *** //

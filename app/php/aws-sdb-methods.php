@@ -86,25 +86,31 @@ function deleteNews($id) {
   ));
 }
 
-function getScheduleAttributes($scheduleName) {
-
-  $client = getClient();
-
-  $result = $client->getAttributes(array(
-    'DomainName' => 'schedule',
-    'ItemName'   => $scheduleName,
-    'Attributes' => array(
-        'date_created', 'span'
-    ),
-    'ConsistentRead' => true
-  ));
-
-  return $result['Attributes'];
-}
-
 function getNewsfeed ()
 {
   $client = getClient();
+
+  // Parse RSS into this array:
+
+  $rss = array(
+    array(
+      'title' => 'This is a title,This is a title,This is a title,This is a title,',
+      'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'date' => 'November 12, 2013',
+    ),
+    array(
+      'title' => 'This is a title,This is a title,This is a title,This is a title,',
+      'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'date' => 'November 12, 2013',
+    ),
+    array(
+      'title' => 'This is a title,This is a title,This is a title,This is a title,',
+      'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'date' => 'November 12, 2013',
+    )
+  );
+
+  return $rss;
 
   $result = $client->select(array(
       'SelectExpression' => "select * from mw_newsfeed where status = '1'"
