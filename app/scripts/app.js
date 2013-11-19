@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MWTutorsApp', ['ngRoute', 'ngAnimate'])
+angular.module('MWTutorsApp', ['ngRoute', 'ngAnimate', 'firebase'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

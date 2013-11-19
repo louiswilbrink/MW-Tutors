@@ -1,34 +1,20 @@
 <navigation-bar></navigation-bar>
-<div class="newsfeed-cms">
-  <h1>Newsfeed</h1>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="panel panel-default" ng-repeat="news in newsfeed.m.news">
-        <div class="panel-heading">
-          <h3 class="panel-title pull-left"><strong>{{news.title}}</strong></h3>
-          <button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteNews(news, $index)">&times;</button>
-          <div class="clearfix"></div>
-        </div>
-        <div class="panel-body">
-          <p class="pull-right">Date Added: {{ news.timestamp | secondsToDate }}</p>
-          <div class="clearfix"></div>
-          <div class="newsfeed-img centered">
-            <img ng-src="{{news.imageUrl}}" class="img-rounded mw-news-image">
-          </div>
-          <!--<div ng-bind-html="news.videoEmbedCode"></div>-->
-          <p class="transcript" ng-repeat="paragraph in news.transcript track by $index">{{ paragraph }}</p>
-        </div>
+<div class="newsfeed">
+  <h1>Newsfeed CMS</h1>
+  <div class="feed-urls">
+    <h2>You are subscribed to the following RSS Feeds</h2>
+    <p ng-repeat="feedUrl in feedUrls">{{ feedUrl }}</p>
+  </div>
+  <div class="feeds" ng-repeat="feed in feeds">
+    <div class="article-container"
+         ng-repeat="news in feed"
+         ng-class="{'row-even': $even }">
+      <div class="title-date-container">
+        <h3 class="title pull-left">{{ news.title | limitTitleCharacters }}</h3>
+        <p class="date pull-right">Date: {{ news.publishedDate }}</p>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Add News</h3>
-        </div>
-        <div class="panel-body">
-          <add-news-form></add-news-form>
-        </div>
-      </div>
+      <div class="clearfix"></div>
+      <p class="description">{{ news.content }}</p>
     </div>
   </div>
 </div>
