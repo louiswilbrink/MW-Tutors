@@ -27,7 +27,7 @@ angular.module('MWTutorsApp', ['ngRoute', 'ngAnimate', 'firebase'])
       })
       .when('/newsfeed-cms', {
         templateUrl: 'views/newsfeedCms.html',
-        controller: 'NewsfeedCtrl'
+        controller: 'NewsfeedCmsCtrl'
       })
       .when('/test-page', {
         templateUrl: 'views/testPage.html',

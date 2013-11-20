@@ -1,16 +1,19 @@
 <navigation-bar></navigation-bar>
 <div class="newsfeed">
   <h1 class="centered">Newsfeed</h1>
-  <div class="feeds" ng-repeat="feed in feeds">
+  <div class="feeds" ng-repeat="feed in newsfeed">
     <div class="article-container"
-         ng-repeat="news in feed"
+         ng-repeat="article in feed.articles"
          ng-class="{'row-even': $even }">
       <div class="title-date-container">
-        <h3 class="title pull-left">{{ news.title | limitTitleCharacters }}</h3>
-        <p class="date pull-right">Date: {{ news.publishedDate }}</p>
+        <h3 class="title pull-left">{{ article.title | limitTitleCharacters }}</h3>
+        <div class="pull-right">
+          <p class="date">Date: {{ article.publishedDate }}</p>
+          <p class="site">From: {{ feed.site }}</p>
+        </div>
       </div>
       <div class="clearfix"></div>
-      <p class="description">{{ news.description }}</p>
+      <p class="description">{{ article.content | cleanArticleContent }}</p>
     </div>
   </div>
 </div>
