@@ -13,6 +13,11 @@ angular.module('MWTutorsApp')
 
     // *** USER-ACTIONS *** //
 
+    $scope.toggleArticle = function (article) {
+
+      feedSvc.saveArticle(article);
+    };
+
     // *** EVENT-HANDLERS *** //
 
     $scope.$on("Newsfeed Loaded", function () {
@@ -21,7 +26,6 @@ angular.module('MWTutorsApp')
 
     $scope.$on("RssFeeds Loaded", function () {
       $scope.rssFeeds = feedSvc.getRssFeeds();
-
       console.log("Rss Feeds: ", $scope.rssFeeds);
     });
 

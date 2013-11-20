@@ -16,6 +16,8 @@ angular.module('MWTutorsApp')
 
     $scope.$on("Newsfeed Loaded", function () {
       $scope.newsfeed = feedSvc.getNewsfeed();
+
+      console.log("Newsfeed Loaded", $scope.newsfeed);
     });
 
     $scope.$on("FeedUrls Loaded", function () {

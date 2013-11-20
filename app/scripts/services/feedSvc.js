@@ -12,18 +12,25 @@ angular.module('MWTutorsApp')
         scope.displayArticles = {};
 
     var feedUrlsRef = null;
-    var articlesRef = null;
+    var articlesRef = new Firebase("https://mwtutors.firebaseio.com/articles");
+
 
     /*** METHODS ***/
 
-    var getFeedArticlesIntersection = function (articles) {
+    var saveArticle = function (article) {
+
+      articlesRef.push({ "title" : article.title });
+    };
+
+    var getFeedArticlesIntersection = function (rssFeed) {
 
       var newsfeedArticles = [];
 
-      angular.forEach(articles, function (article) {
+      angular.forEach(rssFeed.articles, function (article) {
         angular.forEach(scope.displayArticles, function (displayArticle) {
           if (displayArticle.title === article.title) {
             newsfeedArticles.push(article);
+            console.log("added", article.title);
           }
         });
       });
@@ -55,7 +62,13 @@ angular.module('MWTutorsApp')
       angular.forEach(scope.feedUrls, function (url) {
         $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url)).then(function (results) {
 
-          scope.rssFeeds.push(results.data.responseData.feed.entries);
+          var rssFeed = {};
+
+          rssFeed.site = results.data.responseData.feed.title;
+          rssFeed.articles = results.data.responseData.feed.entries;
+          rssFeed.include = true;
+
+          scope.rssFeeds.push(rssFeed);
 
           $rootScope.$broadcast("RssFeeds Loaded");
 
@@ -65,8 +78,6 @@ angular.module('MWTutorsApp')
     };
 
     var getArticlesToDisplay = function () {
-
-      articlesRef = new Firebase("https://mwtutors.firebaseio.com/articles");
 
       articlesRef.on('value', function (snapshot) {
 
@@ -132,6 +143,8 @@ angular.module('MWTutorsApp')
       getRssFeeds: function () {
 
         return scope.rssFeeds;
-      }
+      },
+
+      saveArticle: saveArticle,
     }
   }]);
