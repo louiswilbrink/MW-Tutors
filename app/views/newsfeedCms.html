@@ -3,23 +3,22 @@
   <h1>Newsfeed CMS</h1>
   <div class="feed-urls">
     <h2>You are subscribed to the following RSS Feeds</h2>
-    <p ng-repeat="feedUrl in feedUrls">{{ feedUrl }}</p>
+    <p ng-repeat="rssFeedUrl in rssFeedUrls">{{ rssFeedUrl }}</p>
   </div>
-  <div class="feeds" ng-repeat="rssFeed in rssFeeds">
-    <div class="article-container"
-         ng-repeat="article in rssFeed.articles"
-         ng-class="{'row-even': $even }">
-      <div class="title-date-container">
-        <h3 class="title pull-left">{{ article.title | limitTitleCharacters }}</h3>
-        <div class="pull-right">
-          <p class="date">Date: {{ article.publishedDate }}</p>
-          <p class="site">From: {{ rssFeed.site }}</p>
-        </div>
-        <div class="include-article-checkbox" ng-click="toggleArticle(article)">Include Article?</div>
+  <div class="article-container"
+       ng-repeat="article in combinedRssFeed"
+       ng-class="{'row-even': $even }">
+    <div class="title-date-container">
+      <p>{{ article.isSavedArticle }}</p>
+      <p ng-click="toggleArticle(article)">Add to Newsfeed</p>
+      <h3 class="title pull-left">{{ article.title | limitTitleCharacters }}</h3>
+      <div class="pull-right">
+        <p>Date: {{ article.date }}</p>
+        <p>From: {{ article.site }}</p>
       </div>
-      <div class="clearfix"></div>
-      <p class="description">{{ article.content | cleanArticleContent }}</p>
     </div>
+    <div class="clearfix"></div>
+    <p class="description">{{ article.content | cleanArticleContent }}</p>
   </div>
 </div>
 <footer></footer>

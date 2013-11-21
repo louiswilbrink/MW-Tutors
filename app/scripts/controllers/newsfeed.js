@@ -6,7 +6,6 @@ angular.module('MWTutorsApp')
     // *** MODEL *** //
 
     $scope.newsfeed = [];
-    $scope.feedUrls = [];
 
     // *** INITIALIZATION *** //
 
@@ -14,13 +13,7 @@ angular.module('MWTutorsApp')
 
     // *** EVENT-HANDLERS *** //
 
-    $scope.$on("Newsfeed Loaded", function () {
+    $scope.$on("Newsfeed Built", function () {
       $scope.newsfeed = feedSvc.getNewsfeed();
-
-      console.log("Newsfeed Loaded", $scope.newsfeed);
-    });
-
-    $scope.$on("FeedUrls Loaded", function () {
-      $scope.feedUrls = feedSvc.getFeedUrls();
     });
   }]);

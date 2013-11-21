@@ -6,98 +6,153 @@ angular.module('MWTutorsApp')
     /*** MODEL ***/
 
     var scope = $rootScope.$new();
-        scope.feedUrls = [];
-        scope.newsfeed = [];
+        scope.rssFeedUrls = [];
         scope.rssFeeds = [];
-        scope.displayArticles = {};
+        scope.combinedRssFeed = [];
+        scope.newsfeed = [];
+        scope.savedArticles = {};
+        scope.initialized = false;
 
-    var feedUrlsRef = null;
-    var articlesRef = new Firebase("https://mwtutors.firebaseio.com/articles");
+    // firebase: convert feedUrls to rssFeedUrls
+    var rssFeedUrlsRef = new Firebase("https://mwtutors.firebaseio.com/feedUrls");
+    var savedArticlesRef = new Firebase("https://mwtutors.firebaseio.com/savedArticles");
 
 
     /*** METHODS ***/
 
-    var saveArticle = function (article) {
+    var toggleArticle = function (article) {
 
-      articlesRef.push({ "title" : article.title });
+      article.isSavedArticle = !article.isSavedArticle;
+
+      if (article.isSavedArticle) {
+        console.log("Saving article:", article.title);
+        savedArticlesRef.push(article.title);
+      }
+      else {
+        savedArticlesRef.once('value', function (savedArticlesSnapShot) {
+          savedArticlesSnapShot.forEach(function (childSnapShot) {
+            if(article.title === childSnapShot.val()) {
+              console.log("Removing article:", childSnapShot.val());
+              childSnapShot.ref().remove(function (error) {
+                if (error) {
+                  console.log("Error removing:", childSnapShot.val(), error);
+                }
+              });
+            }
+          });
+        });
+      }
     };
 
-    var getFeedArticlesIntersection = function (rssFeed) {
+    var areAllRssFeedsLoaded = function () {
 
-      var newsfeedArticles = [];
+      var areAllRssFeedsLoaded = true;
 
-      angular.forEach(rssFeed.articles, function (article) {
-        angular.forEach(scope.displayArticles, function (displayArticle) {
-          if (displayArticle.title === article.title) {
-            newsfeedArticles.push(article);
-            console.log("added", article.title);
+      angular.forEach(scope.rssFeedUrls, function (rssFeedUrl) {
+        var hasUrl = false;
+
+        angular.forEach(scope.rssFeeds, function (rssFeed) {
+          if (rssFeed.url === rssFeedUrl) {
+            hasUrl = true;
+          }
+        })
+
+        if (!hasUrl) {
+          areAllRssFeedsLoaded = false;
+        }
+      });
+
+      return areAllRssFeedsLoaded;
+    };
+
+    var buildNewsFeed = function () {
+
+      scope.newsfeed = [];
+
+      angular.forEach(scope.combinedRssFeed, function (combinedRssFeedArticle) {
+        angular.forEach(scope.savedArticles, function (savedArticle) {
+
+          if (combinedRssFeedArticle.title === savedArticle) {
+            scope.newsfeed.push(combinedRssFeedArticle);
+            combinedRssFeedArticle.isSavedArticle = true;
           }
         });
       });
 
-      return newsfeedArticles;
+      $rootScope.$broadcast("Newsfeed Built");
     };
 
-    var getNewsfeeds = function () {
+    var combineRssFeeds = function () {
 
-      scope.newsfeed = [];
+      scope.combinedRssFeed = [];
 
       angular.forEach(scope.rssFeeds, function (rssFeed) {
+        angular.forEach(rssFeed.articles, function (article) {
 
-        var newsfeed = {};
+          var combinedRssFeedArticle = {};
 
-        newsfeed.site = rssFeed.title;
-        newsfeed.articles = getFeedArticlesIntersection(rssFeed);
+          combinedRssFeedArticle.site = rssFeed.site;
+          combinedRssFeedArticle.title = article.title;
+          combinedRssFeedArticle.date = article.publishedDate;
+          combinedRssFeedArticle.content = article.content;
+          combinedRssFeedArticle.isSavedArticle = false;
 
-        scope.newsfeed.push(newsfeed);
+          scope.combinedRssFeed.push(combinedRssFeedArticle);
+        });
       });
 
-      console.log("Newsfeed Loaded", scope.newsfeed);
-      $rootScope.$broadcast("Newsfeed Loaded");
-    };
+      if (areAllRssFeedsLoaded()) {
+        console.log("RssFeeds Combined!");
+      }
 
+      $rootScope.$broadcast("RssFeeds Combined");
+
+      buildNewsFeed();
+    };
 
     var getRssFeeds = function () {
 
-      angular.forEach(scope.feedUrls, function (url) {
+      scope.rssFeeds = [];
+
+      angular.forEach(scope.rssFeedUrls, function (url, key) {
         $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url)).then(function (results) {
 
           var rssFeed = {};
 
           rssFeed.site = results.data.responseData.feed.title;
           rssFeed.articles = results.data.responseData.feed.entries;
-          rssFeed.include = true;
+          rssFeed.url = url;
 
           scope.rssFeeds.push(rssFeed);
 
-          $rootScope.$broadcast("RssFeeds Loaded");
+          if (areAllRssFeedsLoaded()) {
+            console.log("All RssFeeds Loaded", scope.rssFeeds);
+          }
 
-          getNewsfeeds();
+          combineRssFeeds();
         })
       });
     };
 
-    var getArticlesToDisplay = function () {
+    var getSavedArticles = function () {
 
-      articlesRef.on('value', function (snapshot) {
+      savedArticlesRef.on('value', function (snapshot) {
 
-        scope.displayArticles = snapshot.val();
+        scope.savedArticles = snapshot.val();
 
-        console.log("Display articles loaded: ", scope.displayArticles);
+        console.log("Saved Articles Loaded: ", scope.savedArticles);
       });
     };
 
-    var getFeedUrls = function () {
+    var getRssFeedUrls = function () {
 
-      feedUrlsRef = new Firebase("https://mwtutors.firebaseio.com/feedUrls");
+      rssFeedUrlsRef.on('value', function (snapshot) {
 
-      feedUrlsRef.on('value', function (snapshot) {
+        scope.rssFeedUrls = snapshot.val();
 
-        scope.feedUrls = snapshot.val();
+        console.log("RssFeedUrls Loaded", scope.rssFeedUrls);
 
-        console.log("FeedUrls Loaded", scope.feedUrls);
-
-        $rootScope.$broadcast("FeedUrls Loaded", scope.feedUrls);
+        $rootScope.$broadcast("RssFeedUrls Loaded", scope.rssFeedUrls);
 
         getRssFeeds();
       });
@@ -105,28 +160,27 @@ angular.module('MWTutorsApp')
 
     /*** INITIALIZTION ***/
 
-    getArticlesToDisplay();
-    getFeedUrls();
+    var init = function () {
+      if(!scope.initialized) {
+        console.log("Initializing Feed Service...");
+        getSavedArticles();
+        getRssFeedUrls();
+        scope.initialized = true;
+      }
+      else {
+        $rootScope.$broadcast("RssFeedUrls Loaded");
+        $rootScope.$broadcast("RssFeeds Combined");
+        $rootScope.$broadcast("Newsfeed Built");
+      }
+    }();
 
     /*** EVENT HANDLERS ***/
-
-    scope.$watch(function () { return scope.newsfeed.length; }, function (newValue, oldValue) {
-
-      if (scope.newsfeed.length === scope.feedUrls.length && scope.newsfeed.length !== 0) {
-        console.log("All feeds loaded: ", scope.newsfeed);
-      }
-    });
 
     /*** API ***/
 
     return {
 
-      init: function () {
-
-        console.log("Initializing: FeedSvc..");
-        getFeedUrls();
-
-      },
+      init: init,
 
       getNewsfeed: function () {
         
@@ -134,17 +188,17 @@ angular.module('MWTutorsApp')
 
       },
 
-      getFeedUrls: function () {
+      getRssFeedUrls: function () {
 
-        return scope.feedUrls;
+        return scope.rssFeedUrls;
 
       },
 
-      getRssFeeds: function () {
+      toggleArticle: toggleArticle,
 
-        return scope.rssFeeds;
-      },
+      getCombinedRssFeed: function () {
 
-      saveArticle: saveArticle,
+        return scope.combinedRssFeed;
+      }
     }
   }]);
