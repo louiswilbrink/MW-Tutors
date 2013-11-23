@@ -1,24 +1,27 @@
 <navigation-bar></navigation-bar>
-<div class="newsfeed">
+<div class="newsfeed centered">
   <h1>Newsfeed CMS</h1>
   <div class="feed-urls">
     <h2>You are subscribed to the following RSS Feeds</h2>
     <p ng-repeat="rssFeedUrl in rssFeedUrls">{{ rssFeedUrl }}</p>
   </div>
-  <div class="article-container"
-       ng-repeat="article in combinedRssFeed"
-       ng-class="{'row-even': $even }">
-    <div class="title-date-container">
-      <p>{{ article.isSavedArticle }}</p>
-      <p ng-click="toggleArticle(article)">Add to Newsfeed</p>
-      <h3 class="title pull-left">{{ article.title | limitTitleCharacters }}</h3>
-      <div class="pull-right">
-        <p>Date: {{ article.date }}</p>
-        <p>From: {{ article.site }}</p>
+  <div class="panel-default text-left"
+    ng-class="{ 'panel-primary': article.isSavedArticle }"
+    ng-repeat="article in combinedRssFeed">
+    <div class="panel-heading">
+      <div class="pull-right add-to-newsfeed"
+        ng-click="toggleArticle(article)">
+        <p>{{ article.isSavedArticle | addRemoveArticle }}</p>
       </div>
+      <h2 class="title">{{ article.title | limitTitleCharacters }}</h2>
     </div>
-    <div class="clearfix"></div>
-    <p class="description">{{ article.content | cleanArticleContent }}</p>
+    <div class="panel-body">
+      <div class="date-site">
+        <p class="pull-left clearfix">Date: {{ article.date }}</p>
+        <p class="pull-right clearfix">From: {{ article.site }}</p>
+      </div>
+      <p>{{ article.content | cleanArticleContent }}</p>
+    </div>
   </div>
 </div>
 <footer></footer>

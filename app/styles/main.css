@@ -45,6 +45,10 @@ h2 {
   text-align: center;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .margin-auto {
   margin-right: auto;
   margin-left: auto;
@@ -74,10 +78,24 @@ h2 {
   color: white;
 }
 
-.curriculum
-.title {
-  font-size: 40px;
-  padding: 15px;
+@media (min-width: 690px) {
+  .curriculum
+  .title {
+    font-size: 63px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 689px) {
+  .curriculum
+  .title {
+    font-size: 35px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .curriculum
@@ -90,6 +108,22 @@ h2 {
 img {
   height: 110px;
   width: 110px;
+}
+
+@media (min-width: 320px) {
+  .tiles {
+    margin-bottom: 10px;
+    float: left;
+    width: 50%;
+  }
+}
+
+@media (min-width: 690px) {
+  .tiles {
+    margin-bottom: 10px;
+    float: left;
+    width: 25%;
+  }
 }
 
 .mw-small-text {
@@ -108,9 +142,20 @@ img {
   margin-top: 5px;
 }
 
-#about-us
-h1 {
-  margin-top: 40px;
+@media (max-width: 689px) {
+  #about-us
+  h1 {
+    margin-top: 40px;
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 690px) {
+  #about-us
+  h1 {
+    margin-top: 40px;
+    font-size: 63px;
+  }
 }
 
 #about-us
@@ -122,8 +167,8 @@ h1 {
 #about-us
 .row
 .story {
-  padding-right: 100px;
-  padding-left: 100px;
+  padding-right: 10%;
+  padding-left: 10%;
 }
 
 .about-us-short
@@ -136,7 +181,22 @@ h1 {
   max-height: 153px;
 }
 
-.about-us-two-img
-{
-  max-height: 140px;
+@media (max-width: 991px) {
+  .about-us-image-above {
+    display: block;
+  }
+
+  .about-us-image-side {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .about-us-image-above {
+    display: none;
+  }
+
+  .about-us-image-side {
+    display: block;
+  }
 }
