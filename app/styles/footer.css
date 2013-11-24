@@ -9,3 +9,11 @@
 h4 {
   margin: 0px;
 }
+
+.mw-footer-text {
+  color: rgb(153, 153, 153); 
+}
+
+h2.mw-footer-text {
+  margin-top: 10px;
+}

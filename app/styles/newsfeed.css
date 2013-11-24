@@ -44,3 +44,11 @@
 
 .description {
 }
+
+.newsfeed-text-color {
+  color: white;
+}
+
+.add-remove-article {
+  text-align: right;
+}
