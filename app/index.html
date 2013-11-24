@@ -33,33 +33,42 @@
     <!-- Add your site or application content here -->
     <div class="container" ng-view></div>
 
-    <!-- <script src='https://cdn.firebase.com/v0/firebase.js'></script> -->
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
     <script src="components/jquery/jquery.min.js"></script>
     <script src="components/angular/angular.min.js"></script>
     <script src="components/angular-route/angular-route.min.js"></script>
     <script src="components/angular-animate/angular-animate.min.js"></script>
-    <!-- <script src="components/angular-fire/angularfire.min.js"></script> -->
+    <script src="components/angular-fire/angularfire.min.js"></script>
     <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+
+    <!-- SERVICES -->
     <script src="scripts/services/feedSvc.js"></script>
+    <script src="scripts/services/commonSvc.js"></script>
+
+    <!-- DIRECTIVES -->
     <script src="scripts/directives/header.js"></script>
     <script src="scripts/directives/jumbotron.js"></script>
     <script src="scripts/directives/footer.js"></script>
     <script src="scripts/directives/navigationBar.js"></script>
     <script src="scripts/directives/homePage.js"></script>
     <script src="scripts/directives/addNewsForm.js"></script>
-    <script src="scripts/controllers/newsfeed.js"></script>
-    <script src="scripts/filters/secondsToDate.js"></script>
     <script src="scripts/directives/aboutUs.js"></script>
-    <script src="scripts/filters/limitTitleCharacters.js"></script>
+
+    <!-- CONTROLLERS -->
+    <script src="scripts/controllers/newsfeed.js"></script>
     <script src="scripts/controllers/testPage.js"></script>
-    <script src="scripts/filters/cleanArticleContent.js"></script>
     <script src="scripts/controllers/newsfeedCms.js"></script>
+
+    <!-- FILTERS -->
+    <script src="scripts/filters/secondsToDate.js"></script>
+    <script src="scripts/filters/limitTitleCharacters.js"></script>
+    <script src="scripts/filters/cleanArticleContent.js"></script>
     <script src="scripts/filters/addRemoveArticle.js"></script>
-    <script src="scripts/services/commonSvc.js"></script>
+
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

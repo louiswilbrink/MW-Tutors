@@ -5,9 +5,9 @@ angular.module('MWTutorsApp')
     return function (isSavedArticle) {
 
       if(isSavedArticle) {
-        return "Add to Newsfeed";
+        return "Remove From Newsfeed";
       }
 
-      return "Remove From Newsfeed";
+      return "Add to Newsfeed";
     };
   });

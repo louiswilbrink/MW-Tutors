@@ -10,6 +10,8 @@ angular.module('MWTutorsApp')
 
     // *** INITIALIZATION *** //
 
+    feedSvc.initialize();
+
     // *** USER-ACTIONS *** //
 
     $scope.toggleArticle = function (article) {

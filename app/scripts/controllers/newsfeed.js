@@ -9,6 +9,8 @@ angular.module('MWTutorsApp')
 
     // *** INITIALIZATION *** //
 
+    feedSvc.initialize();
+
     // *** USER-ACTIONS *** //
 
     // *** EVENT-HANDLERS *** //

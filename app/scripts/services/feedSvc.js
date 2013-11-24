@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MWTutorsApp')
-  .service('feedSvc', ['$rootScope', '$http', 'commonSvc',/* 'angularFire',*/ function ($rootScope, $http, commonSvc/*, angularFire*/) {
+  .service('feedSvc', ['$rootScope', '$http', 'commonSvc', 'angularFire', function ($rootScope, $http, commonSvc, angularFire) {
 
   /*** MODEL ***/
 
@@ -13,7 +13,7 @@ angular.module('MWTutorsApp')
       scope.savedArticles = {};
       scope.initialized = false;
 
-  var isOffline = true;
+  var isOffline = false;
 
   if (!isOffline) {
     // firebase: convert feedUrls to rssFeedUrls
@@ -84,6 +84,10 @@ angular.module('MWTutorsApp')
       });
     });
 
+    if (areAllRssFeedsLoaded()) {
+      console.log("Newfeed fully built!", scope.newsfeed);
+    }
+
     $rootScope.$broadcast("Newsfeed Built");
   };
 
@@ -99,6 +103,7 @@ angular.module('MWTutorsApp')
         combinedRssFeedArticle.site = rssFeed.site;
         combinedRssFeedArticle.title = article.title;
         combinedRssFeedArticle.date = article.publishedDate;
+        combinedRssFeedArticle.link = article.link;
         combinedRssFeedArticle.content = article.content;
         combinedRssFeedArticle.isSavedArticle = false;
 
@@ -155,18 +160,16 @@ angular.module('MWTutorsApp')
 
       scope.rssFeedUrls = snapshot.val();
 
-      console.log("RssFeedUrls Loaded", scope.rssFeedUrls);
-
       $rootScope.$broadcast("RssFeedUrls Loaded", scope.rssFeedUrls);
 
       getRssFeeds();
     });
   };
 
-  /*** INITIALIZTION ***/
+  var initialize = function () {
 
-  var init = function () {
     if (isOffline) {
+      console.log("Loading offline mockFeeds");
       $http.get("mockFeed.json").then(function (response) {
         var mockFeed = response.data;
         scope.combinedRssFeed = commonSvc.objectToArray(mockFeed);
@@ -176,19 +179,14 @@ angular.module('MWTutorsApp')
       });
       return;
     }
-
-    if(!scope.initialized) {
+    else {
       console.log("Initializing Feed Service...");
       getSavedArticles();
       getRssFeedUrls();
-      scope.initialized = true;
     }
-    else {
-      $rootScope.$broadcast("RssFeedUrls Loaded");
-      $rootScope.$broadcast("RssFeeds Combined");
-      $rootScope.$broadcast("Newsfeed Built");
-    }
-  }();
+  };
+
+  /*** INITIALIZTION ***/
 
   /*** EVENT HANDLERS ***/
 
@@ -196,7 +194,7 @@ angular.module('MWTutorsApp')
 
   return {
 
-    init: init,
+    initialize: initialize,
 
     getNewsfeed: function () {
       

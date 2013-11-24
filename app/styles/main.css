@@ -171,14 +171,18 @@ img {
   padding-left: 10%;
 }
 
-.about-us-short
-{
-  padding-top: 50px;
-}
-
 .about-us-img
 {
   max-height: 153px;
+  max-width: 80%;
+}
+
+@media (max-width: 991px) {
+  #about-us
+  .row
+  .story {
+    padding-top: 7%;
+  }
 }
 
 @media (max-width: 991px) {
